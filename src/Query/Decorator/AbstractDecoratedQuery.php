@@ -15,7 +15,6 @@ use Aura\SqlQuery\AbstractQuery;
 use Aura\SqlQuery\QueryInterface;
 use Database;
 use Netzmacht\Contao\QueryBuilder\Query\ExecuteQuery;
-use Netzmacht\Contao\QueryBuilder\Util\StatementUtil;
 
 /**
  * Base query class implementation.
@@ -108,7 +107,7 @@ abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
             $values[] = $bindValues[$value];
         }
 
-        return $bindValues;
+        return $values;
     }
 
     /**
