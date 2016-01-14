@@ -13,7 +13,11 @@ namespace Netzmacht\Contao\QueryBuilder\Query;
 
 use Aura\SqlQuery\Common\InsertInterface;
 
-interface Insert extends InsertInterface, Execute
+/**
+ * Insert query interface.
+ *
+ * @package Netzmacht\Contao\QueryBuilder\Query
+ */
+interface Insert extends InsertInterface, ExecuteQuery
 {
-
 }

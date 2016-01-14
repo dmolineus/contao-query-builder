@@ -13,7 +13,11 @@ namespace Netzmacht\Contao\QueryBuilder\Query;
 
 use Aura\SqlQuery\Common\UpdateInterface;
 
-interface Update extends UpdateInterface, Execute
+/**
+ * Update interface.
+ *
+ * @package Netzmacht\Contao\QueryBuilder\Query
+ */
+interface Update extends UpdateInterface, ExecuteQuery
 {
-
 }

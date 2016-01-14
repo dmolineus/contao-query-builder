@@ -17,6 +17,7 @@ use \Netzmacht\Contao\QueryBuilder\Query\Select as Protocol;
  * Class SelectDecorator decorates the select query.
  *
  * @package Netzmacht\Contao\QueryBuilder\Query\Contao
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class SelectDecorator extends AbstractDecoratedQuery implements Protocol
 {
@@ -132,7 +133,7 @@ class SelectDecorator extends AbstractDecoratedQuery implements Protocol
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function innerJoin($spec, $cond = null, array $bind = array())
     {
@@ -142,7 +143,7 @@ class SelectDecorator extends AbstractDecoratedQuery implements Protocol
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function leftJoin($spec, $cond = null, array $bind = array())
     {

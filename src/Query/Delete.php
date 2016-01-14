@@ -13,7 +13,11 @@ namespace Netzmacht\Contao\QueryBuilder\Query;
 
 use Aura\SqlQuery\Common\DeleteInterface;
 
-interface Delete extends DeleteInterface, Execute
+/**
+ * Delete query interface.
+ *
+ * @package Netzmacht\Contao\QueryBuilder\Query
+ */
+interface Delete extends DeleteInterface, ExecuteQuery
 {
-
 }

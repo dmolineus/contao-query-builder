@@ -14,7 +14,7 @@ namespace Netzmacht\Contao\QueryBuilder\Query\Decorator;
 use Aura\SqlQuery\AbstractQuery;
 use Aura\SqlQuery\QueryInterface;
 use Database;
-use Netzmacht\Contao\QueryBuilder\Query\Execute;
+use Netzmacht\Contao\QueryBuilder\Query\ExecuteQuery;
 use Netzmacht\Contao\QueryBuilder\Util\StatementUtil;
 
 /**
@@ -22,7 +22,7 @@ use Netzmacht\Contao\QueryBuilder\Util\StatementUtil;
  *
  * @package Netzmacht\Contao\QueryBuilder\Query\Contao
  */
-abstract class AbstractDecoratedQuery implements QueryInterface, Execute
+abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
 {
     /**
      * The query.
@@ -115,7 +115,7 @@ abstract class AbstractDecoratedQuery implements QueryInterface, Execute
      */
     public function execute()
     {
-        $statement = $this->getStatement());
+        $statement = $this->getStatement();
         $values    = $this->getBindValues();
 
         return $this->connection->prepare($statement)->execute($values);

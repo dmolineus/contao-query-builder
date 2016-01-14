@@ -18,7 +18,7 @@ use Database\Result;
  *
  * @package Netzmacht\Contao\QueryBuilder\Query
  */
-interface Execute
+interface ExecuteQuery
 {
     /**
      * Execute the query and return the result.

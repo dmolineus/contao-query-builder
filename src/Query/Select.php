@@ -18,39 +18,31 @@ use Aura\SqlQuery\Common\SelectInterface;
  *
  * @package Netzmacht\Contao\QueryBuilder\Query
  */
-interface Select extends SelectInterface, Execute
+interface Select extends SelectInterface, ExecuteQuery
 {
     /**
-     *
      * Adds a INNER JOIN table and columns to the query.
      *
      * @param string $spec The table specification; "foo" or "foo AS bar".
-     *
      * @param string $cond Join on this condition.
-     *
-     * @param array $bind Values to bind to ?-placeholders in the condition.
+     * @param array  $bind Values to bind to ?-placeholders in the condition.
      *
      * @return self
      *
-     * @throws \Exception
-     *
+     * @throws \Exception If invalid arguments are passed.
      */
     public function innerJoin($spec, $cond = null, array $bind = array());
 
     /**
-     *
      * Adds a LEFT JOIN table and columns to the query.
      *
      * @param string $spec The table specification; "foo" or "foo AS bar".
-     *
      * @param string $cond Join on this condition.
-     *
-     * @param array $bind Values to bind to ?-placeholders in the condition.
+     * @param array  $bind Values to bind to ?-placeholders in the condition.
      *
      * @return self
      *
-     * @throws \Exception If invalid arguments are given.
-     *
+     * @throws \Exception If invalid arguments are passed.
      */
     public function leftJoin($spec, $cond = null, array $bind = array());
 }
