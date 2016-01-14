@@ -1,0 +1,52 @@
+{
+  "name": "netzmacht/contao-query-builder",
+  "description": "Contao query builder based on Aura/SQL_Query",
+  "keywords": [
+    "contao",
+    "sql",
+    "query",
+    "builder",
+    "database"
+  ],
+  "type": "contao-module",
+  "license": "LGPL-3.0+",
+  "authors": [
+    {
+      "name": "David Molineus",
+      "email": "mail@netzmacht.de",
+      "homepage": "http://www.netzmacht.de",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "mail@netzmacht.de",
+    "issues": "https://github.com/netzmacht/contao-query-builder/issues",
+    "source": "https://github.com/netzmacht/contao-query-builder"
+  },
+  "require": {
+    "php": "~5.5|~7.0",
+    "contao/core": ">=3.2,<3.6-dev",
+    "aura/sqlquery": "~2"
+  },
+  "require-dev": {
+    "netzmacht/contao-build-tools": "~1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Netzmacht\\Contao\\QueryBuilder\\": "src/"
+    }
+  },
+  "prefer-stable": true,
+  "minimum-stability": "dev",
+  "extra": {
+    "contao": {
+      "sources": {
+        "module": "system/modules/query-builder"
+      }
+    },
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}
+

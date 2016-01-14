@@ -1,0 +1,123 @@
+<?php
+
+/**
+ * @package    dev
+ * @author     David Molineus <david.molineus@netzmacht.de>
+ * @copyright  2016 netzmacht creative David Molineus
+ * @license    LGPL 3.0
+ * @filesource
+ *
+ */
+
+namespace Netzmacht\Contao\QueryBuilder\Query\Decorator;
+
+use Aura\SqlQuery\AbstractQuery;
+use Aura\SqlQuery\QueryInterface;
+use Database;
+use Netzmacht\Contao\QueryBuilder\Query\Execute;
+use Netzmacht\Contao\QueryBuilder\Util\StatementUtil;
+
+/**
+ * Base query class implementation.
+ *
+ * @package Netzmacht\Contao\QueryBuilder\Query\Contao
+ */
+abstract class AbstractDecoratedQuery implements QueryInterface, Execute
+{
+    /**
+     * The query.
+     *
+     * @var QueryInterface
+     */
+    protected $query;
+
+    /**
+     * Database connection.
+     *
+     * @var Database
+     */
+    protected $connection;
+
+    /**
+     * AbstractDecoratedQuery constructor.
+     *
+     * @param Database      $connection Database connection.
+     * @param AbstractQuery $query      Query.
+     */
+    public function __construct(Database $connection, AbstractQuery $query)
+    {
+        $this->query      = $query;
+        $this->connection = $connection;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString()
+    {
+        return $this->query->__toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getQuoteNamePrefix()
+    {
+        return $this->query->getQuoteNamePrefix();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getQuoteNameSuffix()
+    {
+        return $this->query->getQuoteNameSuffix();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bindValues(array $values)
+    {
+        $this->query->bindValues($values);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bindValue($name, $value)
+    {
+        $this->query->bindValue($name, $value);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBindValues()
+    {
+        return $this->query->getBindValues();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatement()
+    {
+        return StatementUtil::replacePlaceholders($this->query->getStatement());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function execute()
+    {
+        $statement = $this->getStatement());
+        $values    = $this->getBindValues();
+
+        return $this->connection->prepare($statement)->execute($values);
+    }
+}
