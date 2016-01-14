@@ -107,7 +107,7 @@ abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
      */
     public function getStatement()
     {
-        return StatementUtil::replacePlaceholders($this->query->getStatement());
+        return preg_replace('/:\w*/i', '?', $this->query->getStatement());
     }
 
     /**
