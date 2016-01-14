@@ -99,7 +99,16 @@ abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
      */
     public function getBindValues()
     {
-        return $this->query->getBindValues();
+        $values     = [];
+        $bindValues = $this->query->getBindValues();
+        $statement  = $this->query->getStatement();
+        preg_match_all('/:(\w*)/', $statement, $matches);
+
+        foreach ($matches[1] as $value) {
+            $values[] = $bindValues[$value];
+        }
+
+        return $bindValues;
     }
 
     /**
