@@ -18,7 +18,7 @@ use Aura\SqlQuery\Common\SelectInterface;
  *
  * @package Netzmacht\Contao\QueryBuilder\Query
  */
-interface Select extends SelectInterface, ExecuteQuery
+interface Select extends SelectInterface, ExecuteQuery, WhereInStatement
 {
     /**
      * Adds a INNER JOIN table and columns to the query.
