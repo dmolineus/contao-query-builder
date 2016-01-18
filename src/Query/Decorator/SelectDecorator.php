@@ -231,10 +231,10 @@ class SelectDecorator extends AbstractDecoratedQuery implements Protocol
     {
         if ($values instanceof SubselectInterface) {
             $condition = sprintf('%s IN(%s)', $column, $values->getStatement());
-            $arguments = [
+            $arguments = array_merge(
                 [$condition],
                 $values->getBindValues()
-            ];
+            );
 
             call_user_func_array([$this, 'where'], $arguments);
 
@@ -252,10 +252,10 @@ class SelectDecorator extends AbstractDecoratedQuery implements Protocol
                 str_repeat(', ?', (count($values) - 1))
             );
 
-            $arguments = [
+            $arguments = array_merge(
                 [$condition],
                 $values
-            ];
+            );
 
             call_user_func_array([$this, 'where'], $arguments);
         }
