@@ -18,6 +18,6 @@ use Aura\SqlQuery\Common\DeleteInterface;
  *
  * @package Netzmacht\Contao\QueryBuilder\Query
  */
-interface Delete extends DeleteInterface, ExecuteQuery
+interface Delete extends DeleteInterface, ExecuteQuery, WhereInStatement
 {
 }

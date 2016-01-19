@@ -18,6 +18,6 @@ use Aura\SqlQuery\Common\UpdateInterface;
  *
  * @package Netzmacht\Contao\QueryBuilder\Query
  */
-interface Update extends UpdateInterface, ExecuteQuery
+interface Update extends UpdateInterface, ExecuteQuery, WhereInStatement
 {
 }

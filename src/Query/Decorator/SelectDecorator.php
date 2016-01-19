@@ -222,44 +222,4 @@ class SelectDecorator extends AbstractDecoratedQuery implements Protocol
 
         return $this;
     }
-
-    /**
-     * {@inheritDoc}
-     * @throws \InvalidArgumentException If an invalid values argument is given.
-     */
-    public function whereIn($column, $values)
-    {
-        if ($values instanceof SubselectInterface) {
-            $condition = sprintf('%s IN(%s)', $column, $values->getStatement());
-            $arguments = array_merge(
-                [$condition],
-                $values->getBindValues()
-            );
-
-            call_user_func_array([$this, 'where'], $arguments);
-
-            return $this;
-        }
-
-        if (!is_array($values)) {
-            throw new \InvalidArgumentException('Invalid values given. Expected array got ' . gettype($values));
-        }
-
-        if (count($values)) {
-            $condition = sprintf(
-                '%s IN (?%s)',
-                $column,
-                str_repeat(', ?', (count($values) - 1))
-            );
-
-            $arguments = array_merge(
-                [$condition],
-                $values
-            );
-
-            call_user_func_array([$this, 'where'], $arguments);
-        }
-
-        return $this;
-    }
 }
