@@ -11,6 +11,8 @@
 
 namespace Netzmacht\Contao\QueryBuilder\Query\Decorator;
 
+use Netzmacht\Contao\QueryBuilder\Query\WhereInPlugin;
+
 /**
  * Class WhereStatements provides where statements as a trait.
  *
@@ -18,6 +20,8 @@ namespace Netzmacht\Contao\QueryBuilder\Query\Decorator;
  */
 trait WhereStatements
 {
+    use WhereInPlugin;
+
     /**
      * {@inheritDoc}
      */
@@ -34,46 +38,6 @@ trait WhereStatements
     public function orWhere($cond)
     {
         call_user_func_array([$this->query, 'orWhere'], func_get_args());
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     * @throws \InvalidArgumentException If an invalid values argument is given.
-     */
-    public function whereIn($column, $values)
-    {
-        if ($values instanceof SubselectInterface) {
-            $condition = sprintf('%s IN(%s)', $column, $values->getStatement());
-            $arguments = array_merge(
-                [$condition],
-                $values->getBindValues()
-            );
-
-            call_user_func_array([$this, 'where'], $arguments);
-
-            return $this;
-        }
-
-        if (!is_array($values)) {
-            throw new \InvalidArgumentException('Invalid values given. Expected array got ' . gettype($values));
-        }
-
-        if (count($values)) {
-            $condition = sprintf(
-                '%s IN (?%s)',
-                $column,
-                str_repeat(', ?', (count($values) - 1))
-            );
-
-            $arguments = array_merge(
-                [$condition],
-                $values
-            );
-
-            call_user_func_array([$this, 'where'], $arguments);
-        }
 
         return $this;
     }
