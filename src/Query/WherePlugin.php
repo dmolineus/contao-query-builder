@@ -26,6 +26,30 @@ trait WherePlugin
      */
     public function whereIn($column, $values)
     {
+        return $this->addWhereIn('where', $column, $values);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws \InvalidArgumentException If an invalid values argument is given.
+     */
+    public function orWhereIn($column, $values)
+    {
+        return $this->addWhereIn('orWhere', $column, $values);
+    }
+
+    /**
+     * Add an where in query.
+     *
+     * @param string                   $method Where query method. Valid values are where and orWhere.
+     * @param string                   $column Query column.
+     * @param array|SubselectInterface $values Values for in query.
+     *
+     * @throws \InvalidArgumentException If an invalid values argument is given.
+     * @return $this
+     */
+    protected function addWhereIn($method, $column, $values)
+    {
         if ($values instanceof SubselectInterface) {
             $condition = sprintf('%s IN(%s)', $column, $values->getStatement());
             $arguments = array_merge(
@@ -33,7 +57,7 @@ trait WherePlugin
                 $values->getBindValues()
             );
 
-            call_user_func_array([$this, 'where'], $arguments);
+            call_user_func_array([$this, $method], $arguments);
 
             return $this;
         }
@@ -54,7 +78,7 @@ trait WherePlugin
                 $values
             );
 
-            call_user_func_array([$this, 'where'], $arguments);
+            call_user_func_array([$this, $method], $arguments);
         }
 
         return $this;

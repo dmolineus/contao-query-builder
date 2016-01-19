@@ -21,7 +21,7 @@ use Aura\SqlQuery\Common\SubselectInterface;
 interface WhereInStatement
 {
     /**
-     * Add a where in query.
+     * Add an AND where in query.
      *
      * @param string                   $column The query column.
      * @param array|SubselectInterface $values Set of values or subselect query.
@@ -29,4 +29,14 @@ interface WhereInStatement
      * @return self
      */
     public function whereIn($column, $values);
+
+    /**
+     * Add a OR where in query.
+     *
+     * @param string                   $column The query column.
+     * @param array|SubselectInterface $values Set of values or subselect query.
+     *
+     * @return self
+     */
+    public function orWhereIn($column, $values);
 }
