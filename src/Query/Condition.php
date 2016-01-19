@@ -53,7 +53,7 @@ final class Condition extends AbstractQuery implements SubselectInterface, Where
     public function where($cond)
     {
         $arguments = is_callable($cond)
-            ? $this->buildConditionArguments($cond)
+            ? $this->buildCallbackCondition($cond)
             : func_get_args();
 
         return $this->addWhere('AND', $arguments);
@@ -65,7 +65,7 @@ final class Condition extends AbstractQuery implements SubselectInterface, Where
     public function orWhere($cond)
     {
         $arguments = is_callable($cond)
-            ? $this->buildConditionArguments($cond)
+            ? $this->buildCallbackCondition($cond)
             : func_get_args();
 
         return $this->addWhere('OR', $arguments);

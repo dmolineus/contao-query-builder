@@ -28,7 +28,7 @@ trait WhereStatements
     public function where($cond)
     {
         $arguments = is_callable($cond)
-            ? $this->buildConditionArguments($cond)
+            ? $this->buildCallbackCondition($cond)
             : func_get_args();
 
         call_user_func_array([$this->query, 'where'], $arguments);
@@ -42,7 +42,7 @@ trait WhereStatements
     public function orWhere($cond)
     {
         $arguments = is_callable($cond)
-            ? $this->buildConditionArguments($cond)
+            ? $this->buildCallbackCondition($cond)
             : func_get_args();
 
         call_user_func_array([$this->query, 'orWhere'], $arguments);

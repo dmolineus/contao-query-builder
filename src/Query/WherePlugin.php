@@ -67,16 +67,16 @@ trait WherePlugin
      *
      * @return array
      */
-    protected function buildConditionArguments(callable $callback)
+    protected function buildCallbackCondition(callable $callback)
     {
         /** @var Condition $condition */
         $condition = $this->factory->newCondition();
 
         call_user_func($callback, $condition);
 
-        return [
+        return array_merge(
             [$condition->getStatement()],
             $condition->getBindValues()
-        ];
+        );
     }
 }
