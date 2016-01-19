@@ -14,11 +14,11 @@ namespace Netzmacht\Contao\QueryBuilder\Query;
 use Aura\SqlQuery\Common\SubselectInterface;
 
 /**
- * Class WhereInPlugin.
+ * Class WherePlugin extends the where interface of an query.
  *
  * @package Netzmacht\Contao\QueryBuilder\Query
  */
-trait WhereInPlugin
+trait WherePlugin
 {
     /**
      * {@inheritDoc}
@@ -58,5 +58,25 @@ trait WhereInPlugin
         }
 
         return $this;
+    }
+
+    /**
+     * Build condition arguments.
+     *
+     * @param callable $callback Callable Where condition callback.
+     *
+     * @return array
+     */
+    protected function buildConditionArguments(callable $callback)
+    {
+        /** @var Condition $condition */
+        $condition = $this->factory->newCondition();
+
+        call_user_func($callback, $condition);
+
+        return [
+            [$condition->getStatement()],
+            $condition->getBindValues()
+        ];
     }
 }

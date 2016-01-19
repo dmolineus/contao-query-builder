@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\QueryBuilder\Query\Decorator;
 use Aura\SqlQuery\AbstractQuery;
 use Aura\SqlQuery\QueryInterface;
 use Database;
+use Netzmacht\Contao\QueryBuilder\Factory;
 use Netzmacht\Contao\QueryBuilder\Query\ExecuteQuery;
 
 /**
@@ -31,22 +32,22 @@ abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
     protected $query;
 
     /**
-     * Database connection.
+     * Query builder factory.
      *
-     * @var Database
+     * @var Factory
      */
-    protected $connection;
+    protected $factory;
 
     /**
      * AbstractDecoratedQuery constructor.
      *
-     * @param Database      $connection Database connection.
-     * @param AbstractQuery $query      Query.
+     * @param Factory       $factory Query builder factory.
+     * @param AbstractQuery $query   Query.
      */
-    public function __construct(Database $connection, AbstractQuery $query)
+    public function __construct(Factory $factory, AbstractQuery $query)
     {
-        $this->query      = $query;
-        $this->connection = $connection;
+        $this->query   = $query;
+        $this->factory = $factory;
     }
 
     /**
@@ -126,6 +127,6 @@ abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
         $statement = $this->getStatement();
         $values    = $this->getBindValues();
 
-        return $this->connection->prepare($statement)->execute($values);
+        return $this->factory->getConnection()->prepare($statement)->execute($values);
     }
 }

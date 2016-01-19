@@ -11,6 +11,7 @@
 
 namespace Netzmacht\Contao\QueryBuilder\Query\Decorator;
 
+use Database;
 use \Netzmacht\Contao\QueryBuilder\Query\Update as Protocol;
 
 /**

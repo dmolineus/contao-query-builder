@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\QueryBuilder\Query\Decorator;
 
-use Netzmacht\Contao\QueryBuilder\Query\WhereInPlugin;
+use Netzmacht\Contao\QueryBuilder\Query\WherePlugin;
 
 /**
  * Class WhereStatements provides where statements as a trait.
@@ -20,14 +20,18 @@ use Netzmacht\Contao\QueryBuilder\Query\WhereInPlugin;
  */
 trait WhereStatements
 {
-    use WhereInPlugin;
+    use WherePlugin;
 
     /**
      * {@inheritDoc}
      */
     public function where($cond)
     {
-        call_user_func_array([$this->query, 'where'], func_get_args());
+        $arguments = is_callable($cond)
+            ? $this->buildConditionArguments($cond)
+            : func_get_args();
+
+        call_user_func_array([$this->query, 'where'], $arguments);
 
         return $this;
     }
@@ -37,7 +41,11 @@ trait WhereStatements
      */
     public function orWhere($cond)
     {
-        call_user_func_array([$this->query, 'orWhere'], func_get_args());
+        $arguments = is_callable($cond)
+            ? $this->buildConditionArguments($cond)
+            : func_get_args();
+
+        call_user_func_array([$this->query, 'orWhere'], $arguments);
 
         return $this;
     }
