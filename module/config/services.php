@@ -9,8 +9,8 @@
  *
  */
 
-use Aura\SqlQuery\QueryFactory;
 use Netzmacht\Contao\QueryBuilder\Factory;
+use Netzmacht\Contao\QueryBuilder\Query\Factory\QueryFactory;
 
 global $container;
 
