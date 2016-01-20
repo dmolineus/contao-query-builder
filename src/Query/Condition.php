@@ -76,6 +76,8 @@ final class Condition extends AbstractQuery implements SubselectInterface, Where
      */
     protected function build()
     {
-        return '(' . $this->buildWhere() . ')';
+        $where = preg_replace('/^\s*WHERE/', '', $this->buildWhere());
+
+        return '(' . $where . ')';
     }
 }
