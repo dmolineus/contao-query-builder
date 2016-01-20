@@ -27,7 +27,7 @@ abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
     /**
      * The query.
      *
-     * @var QueryInterface
+     * @var AbstractQuery
      */
     protected $query;
 
@@ -128,5 +128,15 @@ abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
         $values    = $this->getBindValues();
 
         return $this->factory->getConnection()->prepare($statement)->execute($values);
+    }
+
+    /**
+     * Get the inner query.
+     *
+     * @return AbstractQuery
+     */
+    public function getInnerQuery()
+    {
+        return $this->query;
     }
 }
