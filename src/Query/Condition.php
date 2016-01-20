@@ -16,6 +16,7 @@ use Aura\SqlQuery\Common\SubselectInterface;
 use Aura\SqlQuery\Common\WhereInterface;
 use Aura\SqlQuery\Quoter;
 use Netzmacht\Contao\QueryBuilder\Factory;
+use Netzmacht\Contao\QueryBuilder\Query\Util\QueryUtil;
 
 /**
  * Class Condition.
@@ -69,6 +70,22 @@ final class Condition extends AbstractQuery implements SubselectInterface, Where
             : func_get_args();
 
         return $this->addWhere('OR', $arguments);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatement()
+    {
+        return QueryUtil::replaceNamedPlaceHolders(parent::getStatement());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBindValues()
+    {
+        return QueryUtil::reorderBindValues(parent::getBindValues(), parent::getStatement());
     }
 
     /**

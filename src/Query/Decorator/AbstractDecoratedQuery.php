@@ -16,6 +16,7 @@ use Aura\SqlQuery\QueryInterface;
 use Database;
 use Netzmacht\Contao\QueryBuilder\Factory;
 use Netzmacht\Contao\QueryBuilder\Query\ExecuteQuery;
+use Netzmacht\Contao\QueryBuilder\Query\Util\QueryUtil;
 
 /**
  * Base query class implementation.
@@ -99,16 +100,7 @@ abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
      */
     public function getBindValues()
     {
-        $values     = [];
-        $bindValues = $this->query->getBindValues();
-        $statement  = $this->query->getStatement();
-        preg_match_all('/:(\w*)/', $statement, $matches);
-
-        foreach ($matches[1] as $value) {
-            $values[] = $bindValues[$value];
-        }
-
-        return $values;
+        return QueryUtil::reorderBindValues($this->query->getBindValues(), $this->query->getStatement());
     }
 
     /**
@@ -116,7 +108,7 @@ abstract class AbstractDecoratedQuery implements QueryInterface, ExecuteQuery
      */
     public function getStatement()
     {
-        return preg_replace('/:\w*/i', '?', $this->query->getStatement());
+        return QueryUtil::replaceNamedPlaceHolders($this->query->getStatement());
     }
 
     /**
