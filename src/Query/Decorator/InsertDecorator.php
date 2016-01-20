@@ -31,4 +31,24 @@ class InsertDecorator extends AbstractDecoratedQuery implements Protocol
 
         return $this;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addRows(array $rows)
+    {
+        $this->query->addRows($rows);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addRow(array $cols = array())
+    {
+        $this->query->addRow($cols);
+
+        return $this;
+    }
 }
