@@ -76,6 +76,6 @@ final class Condition extends AbstractQuery implements SubselectInterface, Where
      */
     protected function build()
     {
-        return $this->indent('(' . $this->where . ')');
+        return '(' . $this->indent($this->where) . ')';
     }
 }
