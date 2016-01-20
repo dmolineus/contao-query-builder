@@ -7,7 +7,7 @@ Contao Query builder
 [![Downloads](http://img.shields.io/packagist/dt/netzmacht/contao-query-builder.svg?style=flat-square)](http://packagist.com/packages/netzmacht/contao-query-builder)
 [![Contao Community Alliance coding standard](http://img.shields.io/badge/cca-coding_standard-red.svg?style=flat-square)](https://github.com/contao-community-alliance/coding-standard)
 
-This extension provides a query builder based on the [aura/sqlquery](https://github.com/auraphp).
+This extension provides a query builder based on the [aura/sqlquery](https://github.com/auraphp/Aura.SqlQuery).
 
 Install
 -------
@@ -30,6 +30,8 @@ The Contao integration adds easy execution of the created statements and DI inte
 **Basic usage**
 
 ```php
+<?php
+
 $factory = $GLOBALS['container']['query-builder.factory'];
 
 // Creates insert query implementing interface Netzmacht\Contao\QueryBuilder\Query\Insert
@@ -49,3 +51,49 @@ $result = $statement->execute();
 
 ```
 
+Extended features
+-----------------
+
+Though this extension is based on [aura/sqlquery](https://github.com/auraphp/Aura.SqlQuery) it provides some extra 
+features.
+
+
+**Query conditions**
+
+If you have complex where conditions you can pass an callback which generates a separate condition object.
+
+```php
+<?php
+
+// Generates "category = 2 AND (date > ? OR highlighted = 1)"
+$query
+    ->where('category = 2')
+    ->where(
+        function (Netzmacht\Contao\QueryBuilder\Condition $condition) {
+            $condition->orWhere('date > ?', time());
+            $condition->orWhere('highlighted = 1');
+        }
+    );
+
+```
+
+**Where in statements**
+
+As Contao does not use PDO as driver you have to manually create whereIn statements. So that `whereIn` and `orWhereIn`
+are provided for queries and for the conditions.
+
+```php
+<?php
+
+// Generates "category = 2 AND (date > ? OR highlighted = 1)"
+$query
+    ->whereIn('category', [2, 3])
+    ->whereIn('author', [3, 4, 2]);
+    
+```
+
+Differences
+-----------
+
+Though you can use named bind values the generated statement does only contain `?` placeholders as Contao only support
+these.
