@@ -148,7 +148,7 @@ class SelectDecorator extends AbstractDecoratedQuery implements Protocol
      */
     public function leftJoin($spec, $cond = null, array $bind = array())
     {
-        $this->join('INNER', $spec, $cond, $bind);
+        $this->join('LEFT', $spec, $cond, $bind);
 
         return $this;
     }
